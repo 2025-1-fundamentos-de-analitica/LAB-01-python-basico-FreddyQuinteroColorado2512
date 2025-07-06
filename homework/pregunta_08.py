@@ -27,3 +27,20 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    with open('files/input/data.csv', 'r') as file:
+        lines = file.readlines()[1:]  # Skip header line
+        result = {}
+
+        for line in lines:
+            parts = line.strip().split('\t')
+            key = int(parts[1])  # Second column value
+            letter = parts[0]  # First column letter
+
+            if key not in result:
+                result[key] = set()  # Use a set to avoid duplicates
+            result[key].add(letter)
+
+        # Convert the result to a sorted list of tuples
+        sorted_result = sorted((key, sorted(value)) for key, value in result.items())
+    
+    return sorted_result

@@ -26,3 +26,26 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+
+    with open('files/input/data.csv', 'r') as file:
+        lines = file.readlines() 
+        data = [line.strip().split('\t') for line in lines]
+
+    result = {}
+    for row in data:
+        values = row[4].split(',')
+        for value in values:
+            if ':' in value:
+                key, val = value.split(':')
+                val = int(val)
+                if key not in result:
+                    result[key] = [val, val]
+                else:
+                    result[key][0] = min(result[key][0], val)
+                    result[key][1] = max(result[key][1], val)
+    # Convertir el diccionario a una lista de tuplas con formato (clave, min_val, max_val)
+    result = [(key, min_val, max_val) for key, (min_val, max_val) in result.items()]
+
+    # Ordenar por clave
+    result.sort(key=lambda x: x[0])
+    return result

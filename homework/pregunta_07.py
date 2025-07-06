@@ -1,11 +1,3 @@
-"""
-Escriba el codigo que ejecute la accion solicitada en cada pregunta. Los
-datos requeridos se encuentran en el archivo data.csv. En este laboratorio
-solo puede utilizar las funciones y librerias basicas de python. No puede
-utilizar pandas, numpy o scipy.
-"""
-
-
 def pregunta_07():
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
@@ -23,5 +15,22 @@ def pregunta_07():
      (7, ['A', 'C', 'E', 'D']),
      (8, ['E', 'D', 'E', 'A', 'B']),
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
-
     """
+    with open('files/input/data.csv', 'r') as file:
+        lines = file.readlines()
+        data = [line.strip().split('\t') for line in lines]
+
+    resultado = {}
+    for row in data:
+        clave = int(row[1])   # columna 0 → número
+        letra = row[0]        # columna 1 → letra
+
+        if clave not in resultado:
+            resultado[clave] = [letra]
+        else:
+            resultado[clave].append(letra)
+
+    # Convertir el diccionario a lista de tuplas y ordenar por clave
+    resultado_ordenado = sorted(resultado.items(), key=lambda x: x[0])
+
+    return resultado_ordenado

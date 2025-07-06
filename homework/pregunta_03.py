@@ -15,3 +15,20 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+
+    with open('files/input/data.csv', 'r') as file:
+        lines = file.readlines()
+
+    data = {}
+    for line in lines:  # Skip header
+        parts = line.strip().split('\t')
+        letter = parts[0]
+        value = int(parts[1])
+
+        if letter in data:
+            data[letter] += value
+        else:
+            data[letter] = value
+
+    result = sorted(data.items())
+    return result

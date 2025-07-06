@@ -14,3 +14,17 @@ def pregunta_01():
     214
 
     """
+    
+    with open('files/input/data.csv', 'r') as file:
+        lines = file.readlines()
+    
+    total = 0
+
+    for line in lines:  # Skip the header line
+        parts = line.strip().split('\t')
+        total += int(parts[1])
+            
+    
+    print("Total=", total)  # Print the total for verification
+    return total
+
